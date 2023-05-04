@@ -25,8 +25,8 @@ pipeline {
           steps {
             withDockerRegistry([credentialsId: "docker-hub", url: ""]) { //se actualizan credenciales de docker-hub y se corrije comentario
                 sh 'printenv'
-                sh 'docker build -t siddharth67/numeric-app:""$GIT_COMMIT"" .'
-                sh 'docker push siddharth67/numeric-app:""$GIT_COMMIT""'
+                sh 'docker build -t g33ck0o/numeric-app:""$GIT_COMMIT"" .'
+                sh 'docker push g33ck0o/numeric-app:""$GIT_COMMIT""'
           }
         }
       }
