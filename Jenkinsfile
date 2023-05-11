@@ -34,10 +34,8 @@ pipeline {
 
         stage('SonarQube - SAST') {
             steps {
-            withSonarQubeEnv() {
-              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
+              sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
             }
-          }
         }
 
         stage('Docker Build and Push') {
