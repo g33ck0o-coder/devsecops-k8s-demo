@@ -5,7 +5,7 @@ pipeline {
       stage('Build Artifact') {
             steps {
               //sh "mvn clean package -DskipTests=true"
-              sh "gradle clean publish -DskipTests=true"
+              sh "gradle clean package -DskipTests=true"
               archive 'target/*.jar' //comentario agregado
             }
         }
