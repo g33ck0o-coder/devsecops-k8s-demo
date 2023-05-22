@@ -45,6 +45,17 @@ pipeline {
         }
       }
 
+      stage('Vulnerability Scan - Docker') {
+            steps {
+                sh "mvn-dependency-ckeck:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
+            }
+            post {
+              always {
+                dependencyCheckPublisher pattern: 'target/dependency-ckeck-report.xml'
+            }
+          }
+        }
+
         stage('Docker Build and Push') {
           steps {
             withDockerRegistry([credentialsId: "docker-hub", url: ""]) { //se actualizan credenciales de docker-hub y se corrije comentario
