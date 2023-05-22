@@ -47,7 +47,7 @@ pipeline {
 
       stage('Vulnerability Scan - Docker') {
             steps {
-                sh "mvn-dependency-ckeck:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
+                sh "mvn dependency-ckeck:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
             }
             post {
               always {
