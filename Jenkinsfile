@@ -4,8 +4,7 @@ pipeline {
   stages {
       stage('Build Artifact') {
             steps {
-              //sh "mvn clean package -DskipTests=true"
-              sh "/opt/gradle/gradlew clean check" //DskipTests=true"
+              sh "mvn clean package -DskipTests=true"
               archive 'target/*.jar' //comentario agregado
             }
         }
