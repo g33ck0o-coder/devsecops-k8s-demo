@@ -99,7 +99,7 @@
 			     <version>6.1.6</version>
 			     <configuration>
 			      <format>ALL</format>
-			      <failBuildOnCVSS>9</failBuildOnCVSS>
+			      <failBuildOnCVSS>5</failBuildOnCVSS>
 			      <!--outputFormat>XML</outputFormat>
 			      <outputFormat>HTML</outputFormat>
 			      </outputFormats>
