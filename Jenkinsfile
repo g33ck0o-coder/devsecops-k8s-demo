@@ -31,14 +31,14 @@ pipeline {
                 waitForQualityGate abortPipeline: true
               }
             }
+          }
         }
-      }
 
       stage('Vulnerability Scan - Docker') {
             steps {
                 sh "mvn dependency-check:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
             }
-        }
+      }
 
         stage('Docker Build and Push') {
           steps {
@@ -46,31 +46,31 @@ pipeline {
                 sh 'printenv'
                 sh 'docker build -t g33ck0o/numeric-app:""$GIT_COMMIT"" .'
                 sh 'docker push g33ck0o/numeric-app:""$GIT_COMMIT""'
+            }
           }
         }
-      }
 
         stage('Kubernetes Deployment - DEV') {
           steps {
             withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "sed -i 's#replace#g33ck0o/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
               sh "kubectl apply -f k8s_deployment_service.yaml"
+              }
             }
           }
         }
-    }
-    post {
-      always {
-        junit 'target/surefire-reports/*.xml'
-        jacoco execPattern: 'target/jacoco.exec'
-        pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-      }
-      //success {
+        post {
+          always {
+            junit 'target/surefire-reports/*.xml'
+            jacoco execPattern: 'target/jacoco.exec'
+            pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+            dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+          }
+          //success {
 
-      //}
-      //failure {
+          //}
+          //failure {
 
-      //}
+          //}
     }
 }
