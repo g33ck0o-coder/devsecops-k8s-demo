@@ -60,7 +60,7 @@ pipeline {
           }
 
         post {
-          always {
+          always { //fix wrong section
             junit 'target/surefire-reports/*.xml'
             jacoco execPattern: 'target/jacoco.exec'
             pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
