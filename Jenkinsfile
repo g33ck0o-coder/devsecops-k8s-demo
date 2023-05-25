@@ -34,9 +34,21 @@ pipeline {
           }
         }
 
+      //stage('Vulnerability Scan - Docker') {
+      //      steps {
+      //          sh "mvn dependency-check:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
+      //      }
+      //}
+
       stage('Vulnerability Scan - Docker') {
             steps {
-                sh "mvn dependency-check:check" //-Dsonar.token=sqp_cdd42f5515b11948627fae0b21c935ecf3eb900a"             
+              parallel(
+                   "Dependency Scan": {
+                       sh "mvn dependency-check"
+                    },
+                    "Trivy Scan":{
+                        sh "bash trivy-docker-image-scan.sh"
+                      })          
             }
       }
 
