@@ -11,7 +11,7 @@ pipeline {
         
         stage('Unit Test - JUnit and Jacoco') {
             steps {
-              sh "mvn test --add-opens java.base/java.lang=ALL-UNNAMED"
+              sh "mvn test"
             }
         }
 
