@@ -19,11 +19,6 @@ pipeline {
             steps {
               sh "mvn org.pitest:pitest-maven:mutationCoverage"
             }
-            post {
-              always {
-                pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-              }
-            }
         }
 
         stage('SonarQube - SAST') {
@@ -81,6 +76,7 @@ pipeline {
         post {
           always { //fix wrong section
             junit 'target/surefire-reports/*.xml'
+            pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
             jacoco execPattern: 'target/jacoco.exec'
             dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
           }
