@@ -1,8 +1,8 @@
-FROM adoptopenjdk/openjdk8:alpine-slim as opnjdk8
+FROM adoptopenjdk/openjdk8:alpine-slim
 WORKDIR /home/k8s-pipeline
 EXPOSE 8080
 
-COPY --from=opnjdk8 ${JAR_FILE} /home/k8s-pipeline/app.jar
+COPY --from=adoptopenjdk/openjdk8:alpine-slim ${JAR_FILE} /home/k8s-pipeline/app.jar
 
 ARG JAR_FILE=target/*.jar
 
