@@ -7,7 +7,7 @@ RUN addgroup -S pipeline && adduser -S k8s-pipeline -G pipeline
 
 WORKDIR /home/k8s-pipeline
 
-COPY --from=adoptopenjdk/openjdk8:alpine-slim /home/k8s-pipeline/app.jar ${JAR_FILE}
+COPY --from=adoptopenjdk/openjdk8:alpine-slim /home/k8s-pipeline/${JAR_FILE} app.jar
 
 USER k8s-pipeline
 
