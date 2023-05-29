@@ -99,19 +99,20 @@ pipeline {
         stage('Kubernetes Deployment - DEV') {
           steps {
             parallel (
-            withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "bash k8s-deployment.sh"
-              }
-            },
-            "Rollout Status": {
-              withKubeConfig([credentialsId: 'kubeconfig']) {
-                sh "bash k8s-deployment-rollout-status.sh"
+              "Deployment": {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "bash k8s-deployment.sh"
                 }
-            }
-          )
+              },
+              "Rollout Status": {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "bash k8s-deployment-rollout-status.sh"
+                }
+              }
+            )
+          }
         }
       }
-    }
 
         post {
           always { //fix wrong section
