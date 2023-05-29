@@ -102,14 +102,16 @@ pipeline {
             withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "bash k8s-deployment.sh"
               }
-            ),
+            },
             "Rollout Status": {
               withKubeConfig([credentialsId: 'kubeconfig']) {
                 sh "bash k8s-deployment-rollout-status.sh"
-              //sh "kubectl apply -f k8s_deployment_service.yaml"
+                }
             }
-          }
+          )
         }
+      }
+    }
 
         post {
           always { //fix wrong section
