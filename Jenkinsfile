@@ -1,6 +1,15 @@
 pipeline {
   agent any
 
+  environment {
+    deploymentName = "devsecops"
+    containerName = "devsecops-container"
+    serviceName = "devsecops-svc"
+    imageName = "g33ck0o/numeric-app:${GIT_COMMIT}"
+    applicationURL="https://devsecops.jenkins.promad.com.mx:18084/"
+    applicationURI="/increment/99"
+  }
+
   stages {
       stage('Build Artifact') {
             steps {
@@ -77,12 +86,27 @@ pipeline {
           }
         }
 
+        //stage('Kubernetes Deployment - DEV') {
+        //  steps {
+        //    withKubeConfig([credentialsId: 'kubeconfig']) {
+        //      sh "sed -i 's#replace#g33ck0o/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+        //      sh "kubectl apply -f k8s_deployment_service.yaml"
+        //      }
+        //    }
+        // }
+        //}
+
         stage('Kubernetes Deployment - DEV') {
           steps {
+            parallel (
             withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "sed -i 's#replace#g33ck0o/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-              sh "kubectl apply -f k8s_deployment_service.yaml"
+              sh "bash k8s-deployment.sh"
               }
+            },
+            "Rollout Status": {
+              withKubeConfig([credentialsId: 'kubeconfig']) {
+                sh "bash k8s-deployment-rollout-status.sh"
+              //sh "kubectl apply -f k8s_deployment_service.yaml"
             }
           }
         }
