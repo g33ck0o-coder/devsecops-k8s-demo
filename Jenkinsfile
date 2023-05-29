@@ -95,6 +95,7 @@ pipeline {
               "Kube Scan": {
                 sh "bash kubesec-scan.sh"
               }
+            )
           }
         }
 
