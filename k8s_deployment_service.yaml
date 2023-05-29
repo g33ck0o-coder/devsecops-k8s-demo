@@ -15,11 +15,11 @@ spec:
       labels:
         app: devsecops
     spec:
-      securityContext:
-        runAsNonRoot: true
       containers:
       - image: replace
         name: devsecops-container
+        securityContext:
+          runAsNonRoot: true
 ---
 apiVersion: v1
 kind: Service
