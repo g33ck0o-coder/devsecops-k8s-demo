@@ -22,7 +22,7 @@ then
 		exit 1;
 	fi;
 
-	if [[ "http_code" == 500 ]];
+	if [[ "$http_code" == 200 ]];
 	then
 		echo "HTTP Status Code Test Passed"
 	else
