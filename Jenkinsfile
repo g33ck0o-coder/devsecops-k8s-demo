@@ -7,7 +7,7 @@ pipeline {
     serviceName = "devsecops-svc"
     imageName = "g33ck0o/numeric-app:${GIT_COMMIT}"
     applicationURL="https://devsecops.jenkins.promad.com.mx:18084/"
-    applicationURI="/increment/99"
+    applicationURI="/increment/mx"
   }
 
   stages {
