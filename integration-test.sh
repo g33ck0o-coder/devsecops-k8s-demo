@@ -16,7 +16,7 @@ then
 
 	if [[ "$response" == 100 ]];
 	then
-		echo "Increment Test Pased"
+		echo "Increment Test Passed"
 	else
 		echo "Increment Test Failed"
 		exit 1;
