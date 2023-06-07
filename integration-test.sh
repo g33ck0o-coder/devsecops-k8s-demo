@@ -34,5 +34,3 @@ else
 	echo "The service doesn't have a NodePort value"
 	exit 1;
 fi;
-
-ccdcfc
