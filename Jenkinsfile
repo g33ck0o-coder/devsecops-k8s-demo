@@ -154,7 +154,7 @@ pipeline {
         }
       }
 
-        stage('Prompte to PROD?') {
+        stage('Prompte to PROD?') { //Se agrega validacion de envio a postproduccion
           steps {
             timeout(time: 2, unit: 'DAYS') {
               input 'Do you want to Approve the deployment to production environment/namespace?'
