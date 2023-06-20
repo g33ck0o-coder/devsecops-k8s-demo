@@ -161,7 +161,7 @@ pipeline {
             }
           }
         }
-    }
+
         post {
           always { //fix wrong section
             junit 'target/surefire-reports/*.xml'
