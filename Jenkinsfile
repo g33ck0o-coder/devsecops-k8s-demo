@@ -189,7 +189,7 @@ pipeline {
                   sh "kubectl -n prod apply -f k8s_PROD-deployment_service.yaml"
                 }
               },
-              "Rollout Status"
+              "Rollout Status": {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
                   sh "bash k8s-PROD-deployment-rollout-status.sh"
                 }
@@ -197,7 +197,6 @@ pipeline {
             }
           }
         }
-      }
 
         post {
           always { //fix wrong section
