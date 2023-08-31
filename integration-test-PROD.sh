@@ -8,12 +8,12 @@ sleep 5s
 PORT=$(kubectl -n istio-system get svc istio-ingressgateway -o json | jq '.spec.ports[] | select(.port == 80)' | jq .nodePort)
 
 echo $PORT
-echo $applicationURL:$PORT$applicationURI
+echo localhost:$PORT$applicationURI
 
 if [[ ! -z "$PORT" ]];
 then
-	response=$(curl -s $applicationURL:$PORT$applicationURI)
-	http_code=$(curl -s -o /dev/null -w "%{http_code}" $applicationURL:$PORT$applicationURI)
+	response=$(curl -s localhost:$PORT$applicationURI)
+	http_code=$(curl -s -o /dev/null -w "%{http_code}" localhost:$PORT$applicationURI)
 
 	if [[ "$response" == 100 ]];
 	then
