@@ -7,6 +7,7 @@ pipeline {
     serviceName = "devsecops-svc"
     imageName = "g33ck0o/numeric-app:${GIT_COMMIT}"
     applicationURL="https://devsecops.jenkins.promad.com.mx:18084/"
+    applicationLocalURL="http://192.168.10.144"
     applicationURI="/increment/99"
   }
 
@@ -222,9 +223,16 @@ pipeline {
             jacoco execPattern: 'target/jacoco.exec'
             dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report', useWrapperFileDirectly: true])
+
+            //sendNotification currentBuild.result
           }
-        
-          //success {
+          success {
+            script {
+              env.failedStage = "none"
+              env.emoji = ":white_check_mark: :tada: :thumbsup_all:"
+              sendNotification currentBuild.result
+            }
+          }
 
           //}
           //failure {
